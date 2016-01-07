@@ -1,0 +1,16 @@
+body{
+	background-color: gray;
+	font-size:2em;
+}
+
+.knop{
+	width:100px;
+	height:100px;
+	margin-top:5px;
+	margin-right: 5px;
+	font-size: 3em;
+}
+
+.knop:disabled{
+	color:black;
+}

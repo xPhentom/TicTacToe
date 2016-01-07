@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="nl">
+	<head>
+		<meta charset="utf-8">
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<link rel="stylesheet" href="stylesheet.css"/>
+		<title>Tic Tac Toe</title>
+		<meta name="description" content="">
+		<meta name="author" content="Wouter">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+		<link rel="shortcut icon" href="/favicon.ico">
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+	</head>
+
+	<body  onload="AllesLeegmaken()">
+	
+		<script type="text/javascript">
+
+
+		var scoresp=0;
+		var scoreco=0;
+		
+
+		var a, b, c, d, e, f, g, h, i;
+
+		var rij = [];
+
+		var win=false;
+
+
+		function Mark(coordinates)
+		{
+			if(document.getElementById(coordinates).value!=" ")
+				document.getElementById(coordinates).disabled=true
+			else{
+				document.getElementById(coordinates).value = "X";
+				DeclareVariables();
+				rij.push(coordinates);
+				
+				AI();
+				DeclareVariables();
+				console.log(a,b,c,d,e,f,g,h,i);
+				document.getElementById(coordinates).disabled=true;
+				Win();
+				
+			}
+		}
+				
+
+
+		function DeclareVariables(){
+			
+			a = document.getElementById("1,1").value;
+			b = document.getElementById("1,2").value;
+			c = document.getElementById("1,3").value;
+			d = document.getElementById("2,1").value;
+			e = document.getElementById("2,2").value;
+			f = document.getElementById("2,3").value;
+			g = document.getElementById("3,1").value;
+			h = document.getElementById("3,2").value;
+			i = document.getElementById("3,3").value;
+
+		}
+		
+		function Win() /*Start Functie*/
+		{
+
+			//-------------------------------------Check alle horizontale lijnen
+
+			if (a != " " || b != " " || c != " "){
+				if (a==b && b==c){
+					win=true;
+					alert(a +" heeft gewonnen");
+					AllesLeegmaken();
+					if(a=="O")
+						scoreco++;
+					else
+						scoresp++;
+					
+				}
+			}
+			
+			if (d != " " || e != " " || f != " "){
+				if (d==e && e==f){
+					win=true;
+					alert(d + " heeft gewonnen");
+					AllesLeegmaken();
+					if(d=="O")
+						scoreco++;
+					else
+						scoresp++;
+				}
+			}
+
+			if (g != " " || h != " " || i != " "){
+				if (g==h && h==i){
+					win=true;
+					alert(g + " heeft gewonnen");
+					AllesLeegmaken();
+					if(g=="O")
+						scoreco++;
+					else
+						scoresp++;
+					
+				}
+			}
+
+			//-------------------------------------Check alle verticale lijnen
+
+			if (a != " " || d != " " || g != " "){
+				if (a==d && d==g){
+					win=true;
+					alert(a +" heeft gewonnen");
+					AllesLeegmaken();
+					if(a=="O")
+						scoreco++;
+					else
+						scoresp++;
+				}
+			}
+			
+			if (b != " " || e != " " || h != " "){
+				if (b==e && e==h){
+					win=true;
+					alert(b + " heeft gewonnen");
+					AllesLeegmaken();
+					if(b=="O")
+						scoreco++;
+					else
+						scoresp++;
+					
+				}
+			}
+
+			if (c != " " || f != " " || i != " "){
+				if (c==f && f==i){
+					win=true;
+					alert(c + " heeft gewonnen");
+					AllesLeegmaken();
+					if(c=="O")
+						scoreco++;
+					else
+						scoresp++;
+					
+					
+				}
+			}
+
+			//-------------------------------------Check alle diagonale lijnen
+
+			if (a != " " || e != " " || i != " "){
+				if (a==e && e==i){
+					win=true;
+					alert(a + " heeft gewonnen");
+					AllesLeegmaken();
+					if(a=="O")
+						scoreco++;
+					else
+						scoresp++;
+					
+				}
+			}
+
+			if (c != " " || e != " " || g != " "){
+				if (c==e && e==g){
+					win=true;
+					alert(c + " heeft gewonnen");
+					AllesLeegmaken();
+					if(c=="O")
+						scoreco++;
+					else
+						scoresp++;
+					
+				}
+			}
+
+				document.getElementById("scoreSpeler").innerHTML = scoresp;
+				document.getElementById("scoreComputer").innerHTML = scoreco;
+
+				gelijkspel();
+				
+
+		}/* Einde Functie Win()*/
+
+		function gelijkspel(){
+			if(win==false && a!=" " && b!=" " && c!=" " && d!=" " && e!=" " && f!=" " && g!=" " && h!=" " && i!=" " ){
+				alert("gelijkspel");
+				AllesLeegmaken();
+			}
+		}
+
+
+		function AllesLeegmaken(){
+
+			document.getElementById("1,1").value=" ";
+			document.getElementById("1,2").value=" ";
+			document.getElementById("1,3").value=" ";
+			document.getElementById("2,1").value=" ";
+			document.getElementById("2,2").value=" ";
+			document.getElementById("2,3").value=" ";
+			document.getElementById("3,1").value=" ";
+			document.getElementById("3,2").value=" ";
+			document.getElementById("3,3").value=" ";
+
+			document.getElementById("1,1").disabled=false;
+			document.getElementById("1,2").disabled=false;
+			document.getElementById("1,3").disabled=false;
+			document.getElementById("2,1").disabled=false;
+			document.getElementById("2,2").disabled=false;
+			document.getElementById("2,3").disabled=false;
+			document.getElementById("3,1").disabled=false;
+			document.getElementById("3,2").disabled=false;
+			document.getElementById("3,3").disabled=false;
+
+			rij=[];
+
+			console.clear();
+			
+		}
+
+		function AI(){
+
+			//-----------------START 1,1
+
+			if (rij[0] == "1,1"){//--------Het eerste aangeduide is 1,1
+				document.getElementById("2,2").value="O";
+
+				if(rij[1] == "1,2"){//------2de zet 1,1
+					document.getElementById("1,3").value="O";
+					if(rij[2]=="2,1"||rij[2]=="2,3"||rij[2]=="3,2"||rij[2]=="3,3")
+						document.getElementById("3,1").value="O";//--- AI wint
+					if(rij[2]=="3,1"){
+						document.getElementById("2,1").value="O";
+						if(rij[3]=="2,3")
+							document.getElementById("3,2").value="O";
+						if(rij[3]=="3,2"||rij[3]=="3,3")
+							document.getElementById("2,3").value="O";
+					}
+				}
+
+
+				if(rij[1]=="1,3"){//------2de zet 1,1
+					document.getElementById("1,2").value="O";
+					if(rij[2]=="2,1"||rij[2]=="2,3"||rij[2]=="3,1"||rij[2]=="3,3")
+						document.getElementById("3,2").value="O";
+					if(rij[2]=="3,2"){
+						document.getElementById("3,1").value="O";
+						if(rij[3]=="2,3")
+							document.getElementById("3,3").value="O";
+						if(rij[3]=="2,1")
+							document.getElementById("2,3").value="O";
+						if(rij[3]=="3,3")
+							document.getElementById("2,1").value="O";
+					}
+				}
+
+				if(rij[1]=="2,1"){//------2de zet 1,1
+					document.getElementById("3,1").value="O";
+					if(rij[2]=="1,2"||rij[2]=="2,3"||rij[2]=="3,2"||rij[2]=="3,3")
+						document.getElementById("1,3").value="O";
+					if(rij[2]=="1,3"){
+						document.getElementById("1,2").value="O";
+						if(rij[3]=="2,3"||rij[3]=="3,3")
+							document.getElementById("3,2").value="O";
+						if(rij[3]=="3,2")
+							document.getElementById("3,3").value="O";
+					}
+				}
+			
+
+
+				if(rij[1]=="2,3"){
+					document.getElementById("1,3").value="O";
+					if(rij[2]=="1,2"||rij[2]=="2,1"||rij[2]=="3,2"||rij[2]=="3,3")
+						document.getElementById("3,1").value="O";
+					if(rij[2]=="3,1"){
+						document.getElementById("2,1").value="O";
+						if(rij[3]=="1,2")
+							document.getElementById("3,2").value="O";
+						if(rij[3]=="3,2")
+							document.getElementById("3,3").value="O";
+						if(rij[3]=="3,3")
+							document.getElementById("3,2").value="O";
+					}
+				}
+
+
+				if(rij[1]=="3,1"){
+					document.getElementById("2,1").value="O";
+					if(rij[2]=="1,2"||rij[2]=="1,3"||rij[2]=="3,2"||rij[2]=="3,3")
+						document.getElementById("2,3").value="O";
+					if(rij[2]=="2,3"){
+						document.getElementById("1,3").value="O";
+						if(rij[3]=="1,2")
+							document.getElementById("3,2").value="O";
+						if(rij[3]=="3,3")
+							document.getElementById("3,2").value="O";
+						if(rij[3]=="3,2")
+							document.getElementById("3,3").value="O";
+					}
+
+				}
+
+				if(rij[1]=="3,2"){
+					document.getElementById("3,1").value="O";
+					if(rij[2]=="1,2"||rij[2]=="2,1"||rij[2]=="2,3"||rij[2]=="3,3")
+						document.getElementById("1,3").value="O";
+					if(rij[2]=="1,3"){
+						document.getElementById("1,2").value="O";
+						if(rij[3]=="2,1")
+							document.getElementById("2,3").value="O";
+						if(rij[3]=="3,3")
+							document.getElementById("2,3").value="O";
+						if(rij[3]=="2,3")
+							document.getElementById("3,3").value="O";
+					}
+				}
+
+
+				if(rij[1]=="3,3"){
+					document.getElementById("2,3").value="O";
+					if(rij[2]=="1,2"||rij[2]=="1,3"||rij[2]=="3,1"||rij[2]=="3,2")
+						document.getElementById("2,1").value="O";
+					if(rij[2]=="2,1"){
+						document.getElementById("3,1").value="O";
+						if(rij[3]=="1,2"||rij[3]=="3,2")
+							document.getElementById("1,3").value="O";
+						if(rij[3]=="1,3")
+							document.getElementById("1,2").value="O";
+					}
+				}
+
+			}
+
+			//------- EINDE 1,1
+
+			//------- START 1,2
+
+
+			if (rij[0] == "1,2"){//--------Het eerste aangeduide is 1,2
+				document.getElementById("2,2").value="O";
+
+				if(rij[1] == "1,1"){
+					document.getElementById("1,3").value="O";
+					if(rij[2] == "2,1"||rij[2] == "2,3"||rij[2] == "3,2"||rij[2] == "3,3")
+						document.getElementById("3,1").value="O";
+					if(rij[2]=="3,1"){
+						document.getElementById("2,1").value="O";
+						if(rij[3]=="3,2"||rij[3]=="3,3")
+							document.getElementById("2,3").value="O";
+						if(rij[3]=="2,3")
+							document.getElementById("3,3").value="O";
+					}
+				}
+
+				if(rij[1]== "1,3"){
+					document.getElementById("1,1").value="O"
+					if(rij[2]=="2,1"||rij[2]=="2,3"||rij[2]=="3,1"||rij[2]=="3,2")
+						document.getElementById("3,3").value="O";
+					if(rij[2]=="3,3"){
+						document.getElementById("2,3").value="O";
+						if(rij[3]=="3,1" || rij[3]=="3,2")
+							document.getElementById("2,1").value="O";
+						if(rij[3]=="2,1")
+							document.getElementById("3,2").value="O";
+					}
+				}
+
+				if(rij[1]=="2,1"){
+					document.getElementById("1,1").value="O";
+					if(rij[2]=="1,3"||rij[2]=="2,3"||rij[2]=="3,1"||rij[2]=="3,2")
+						document.getElementById("3,3").value="O";
+					if(rij[2]=="3,3"){
+						document.getElementById("2,3").value="O";
+						if(rij[3]=="1,3" ||rij[3]=="3,1" )
+							document.getElementById("3,2").value="O";
+						if(rij[3]=="3,2")
+							document.getElementById("3,1").value="O";
+					}
+				}
+
+				if(rij[1]=="2,3"){
+					document.getElementById("1,3").value="O";
+					if(rij[2]=="1,1"||rij[2]=="2,1"||rij[2]=="3,2"||rij[2]=="3,3")
+						document.getElementById("3,1").value="O";
+					if(rij[2]=="3,1"){
+						document.getElementById("1,1").value="O";
+						if(rij[3]=="2,1"||rij[3]=="3,2")
+							document.getElementById("3,3").value="O";
+						if(rij[3]=="3,3")
+							document.getElementById("3,2").value="O";
+					}
+				}
+
+				if(rij[1]=="3,1"){
+					document.getElementById("2,1").value="O";
+					if(rij[2]=="1,1"||rij[2]=="1,3"||rij[2]=="3,2"||rij[2]=="3,3")
+						document.getElementById("2,3").value="O";
+					if(rij[2]=="2,3"){
+						document.getElementById("1,3").value="O";
+						if(rij[3]=="3,3"||rij[3]=="1,1")
+							document.getElementById("3,2").value="O";
+						if(rij[3]=="3,2")
+							document.getElementById("3,3").value="O"
+						
+					}
+				}
+
+
+				if(rij[1]=="3,2"){
+					document.getElementById("3,3").value="O";
+					if(rij[2]=="3,1"||rij[2]=="2,3"||rij[2]=="2,1"||rij[2]=="1,3")
+						document.getElementById("1,1").value="O";
+					if(rij[2]=="1,1"){
+						document.getElementById("1,3").value="O";
+						if(rij[3]=="2,1"||rij[3]=="2,3")
+							document.getElementById("3,1").value="O";
+						if(rij[3]=="3,1")
+							document.getElementById("2,1").value="O";
+					}
+				}
+
+				if(rij[1]=="3,3"){
+					document.getElementById("2,3").value="O";
+					if(rij[2]=="1,1"||rij[2]=="3,1"||rij[2]=="3,2"||rij[2]=="1,3")
+						document.getElementById("2,1").value="O";
+					if(rij[2]=="2,1"){
+						document.getElementById("1,1").value="O";
+						if(rij[3]=="1,3"||rij[3]=="3,2")
+							document.getElementById("3,1").value="O"
+						if(rij[3]=="3,1")
+							document.getElementById("3,2").value="O"
+					}
+				}
+
+			}
+
+				//------- EINDE 1,2
+
+				//------- START 1,3
+
+			if(rij[0]=="1,3"){
+				document.getElementById("2,2").value="O";
+
+				if(rij[1]=="1,1"){
+					document.getElementById("1,2").value="O";
+					if(rij[2]=="2,1"||rij[2]=="2,3"||rij[2]=="3,1"||rij[2]=="3,3")
+						document.getElementById("3,2").value="O"
+					if(rij[2]=="3,2"){
+						document.getElementById("3,1").value="O";
+						if(rij[3]=="2,1"||rij[3]=="3,3")
+							document.getElementById("2,3").value="O";
+						if(rij[3]=="2,3")
+							document.getElementById("3,3").value="O";
+					}
+				}
+
+				if(rij[1]=="1,2"){
+					document.getElementById("1,1").value="O";
+					if(rij[2]=="2,1"||rij[2]=="2,3"||rij[2]=="3,1"||rij[2]=="3,2")
+						document.getElementById("3,3").value="O";
+					if(rij[2]=="3,3"){
+						document.getElementById("2,3").value="O";
+						if(rij[3]=="2,1"||rij[3]=="3,1")
+							document.getElementById("3,2").value="O";
+						if(rij[3]=="3,2")
+							document.getElementById("3,1").value="O";
+					}
+				}
+
+				if(rij[1]=="2,1"){
+					document.getElementById("1,1").value="O";
+					if (rij[2]=="1,2"||rij[2]=="2,3"||rij[2]=="3,1"||rij[2]=="3,2")
+						document.getElementById("3,3").value="O";
+					if(rij[2]=="3,3"){
+						document.getElementById("2,3").value="O";
+						if(rij[3]=="2,2"||rij[3]=="3,2")
+							document.getElementById("3,1").value="O";
+						if(rij[3]=="3,1")
+							document.getElementById("3,2").value="O";
+					}
+				}
+
+				if(rij[1]=="2,3"){
+					document.getElementById("3,3").value="O";
+					if(rij[2]=="1,2"||rij[2]=="2,1"||rij[2]=="3,1"||rij[2]=="3,2")
+						document.getElementById("1,1").value="O";
+					if(rij[2]=="1,1"){
+						document.getElementById("1,2").value="O";
+						if(rij[3]=="3,1"||rij[3]=="3,2")
+							document.getElementById("2,1").value="O";
+						if(rij[3]=="2,1")
+							document.getElementById("3,1").value="O";
+					}
+				}
+
+				if(rij[1]=="3,1"){
+					document.getElementById("2,1").value="O";
+					if(rij[2]=="1,1"||rij[2]=="1,2"||rij[2]=="3,2"||rij[2]=="3,3")
+						document.getElementById("2,3").value="O";
+					if(rij[2]=="2,3"){
+						document.getElementById("3,3").value="O";
+						if(rij[3]=="1,2"||rij[3]=="3,2" )
+							document.getElementById("1,1").value="O";
+						if(rij[3]=="1,1" )
+							document.getElementById("1,2").value="O";
+					}
+				}
+
+				if(rij[1]=="3,2"){
+					document.getElementById("3,3").value="O";
+					if(rij[2]=="1,2"||rij[2]=="2,1"||rij[2]=="2,3"||rij[2]=="3,1")
+						document.getElementById("1,1").value="O";
+					if(rij[2]=="1,1"){
+						document.getElementById("1,2").value="O";
+						if(rij[3]=="2,1"||rij[3]=="2,3")
+							document.getElementById("3,1").value="O";
+						if(rij[3]=="3,1")
+							document.getElementById("2,1").value="O";
+					}
+				}
+
+				if(rij[1]=="3,3"){
+					document.getElementById("2,3").value="O";
+					if(rij[2]=="1,1"||rij[2]=="1,2"||rij[2]=="3,1"||rij[2]=="3,2")
+						document.getElementById("2,1").value="O";
+					if(rij[2]=="2,1"){
+						document.getElementById("1,1").value="O";
+						if(rij[3]=="1,2"||rij[3]=="3,2")
+							document.getElementById("3,1").value="O";
+						if(rij[3]=="3,1")
+							document.getElementById("3,2").value="O";
+					}
+				}
+
+			}
+
+			//------- EINDE 1,3
+
+			//------- START 2,1
+
+			if(rij[0]=="2,1")
+			{
+				document.getElementById("2,2").value="O";
+
+
+				if(rij[1]=="1,1"){
+					document.getElementById("3,1").value="O";
+					if(rij[2]=="1,2"||rij[2]=="2,3"||rij[2]=="3,1"||rij[2]=="3,2")
+						document.getElementById("1,3").value="O";
+					if(rij[2]=="1,3"){
+						document.getElementById("1,2").value="O";
+						if(rij[3]=="2,3"||rij[3]=="3,2")
+							document.getElementById("3,3").value="O";
+					}
+
+				}
+
+				if(rij[1]=="1,2"){
+					document.getElementById("1,1").value="O";
+					if(rij[2]=="1,3"||rij[2]=="2,3"||rij[2]=="3,1"||rij[2]=="3,2")
+						document.getElementById("3,3").value="O";
+					if(rij[2]=="3,3"){
+						document.getElementById("1,3").value="O";
+						if(rij[3]=="2,3"||rij[3]=="3,2")
+							document.getElementById("3,1").value="O";
+						if(rij[3]=="3,1")
+							document.getElementById("3,2").value="O";
+					}
+				}
+
+				if(rij[1]=="1,3"){
+					document.getElementById("1,1").value="O";
+					if(rij[2]=="1,2"||rij[2]=="2,3"||rij[2]=="3,1"||rij[2]=="3,2")
+						document.getElementById("3,3").value="O";
+					if(rij[2]=="3,3"){
+						document.getElementById("2,3").value="O";
+						if(rij[3]=="1,2"||rij[3]=="3,2")
+							document.getElementById("3,1").value="O";
+						if(rij[3]=="3,1")
+							document.getElementById("3,2").value="O";
+					}
+				}
+
+				if(rij[1]=="2,3"){
+					document.getElementById("1,3").value="O";
+					if(rij[2]=="1,1"||rij[2]=="1,2"||rij[2]=="3,2"||rij[2]=="3,3")
+						document.getElementById("3,1").value="O";
+					if(rij[2]=="3,1"){
+						document.getElementById("1,1").value="O";
+						if(rij[3]=="1,2")
+							document.getElementById("3,3").value="O";
+						if(rij[3]=="3,2"||rij[3]=="3,3")
+							document.getElementById("1,2").value="O";
+					}
+				}
+
+				if(rij[1]=="3,1"){
+					document.getElementById("1,1").value="O";
+					if(rij[2]=="1,2"||rij[2]=="1,3"||rij[2]=="2,3"||rij[2]=="3,2")
+						document.getElementById("3,3").value="O";
+					if(rij[2]=="3,3"){
+						document.getElementById("3,2").value="O";
+						if(rij[3]=="1,3"||rij[3]=="2,3")
+							document.getElementById("1,2").value="O";
+						if(rij[3]=="1,2")
+							document.getElementById("1,3").value="O";
+					}
+				}
+
+				if(rij[1]=="3,2"){
+					document.getElementById("3,1").value="O";
+					if(rij[2]=="1,1"||rij[2]=="1,2"||rij[2]=="2,3"||rij[2]=="3,3")
+						document.getElementById("1,3").value="O";
+					if(rij[2]=="1,3"){
+						document.getElementById("1,1").value="O";
+						if(rij[3]=="1,2"||rij[3]=="2,3")
+							document.getElementById("3,3").value="O";
+						if(rij[3]=="3,3")
+							document.getElementById("2,3").value="O";
+					}
+				}
+
+				if(rij[1]=="3,3"){
+					document.getElementById("3,2").value="O";
+					if(rij[2]=="1,1"||rij[2]=="1,3"||rij[2]=="3,1"||rij[2]=="2,3")
+						document.getElementById("1,2").value="O";
+					if(rij[2]=="1,2"){
+						document.getElementById("1,3").value="O";
+						if(rij[3]=="1,1"||rij[3]=="2,3")
+							document.getElementById("3,1").value="O";
+						if(rij[3]=="3,1")
+							document.getElementById("1,1").value="O"; 
+					}
+				}
+
+			}
+
+			//------- EIND 2,1
+
+			//------- START 2,3 ,,,,, 2,2 komt als laatst
+
+			if(rij[0]=="2,3")
+			{
+				document.getElementById("2,2").value="O";
+
+				if(rij[1]=="1,1"){
+					document.getElementById("1,2").value="O";
+					if(rij[2]=="1,3"||rij[2]=="2,1"||rij[2]=="3,1"||rij[2]=="3,3")
+						document.getElementById("3,2").value="O"
+					if (rij[2]=="3,2") {
+						document.getElementById("3,1").value="O";
+						if(rij[3]=="2,1"||rij[3]=="3,3")
+							document.getElementById("1,3").value="O";
+						if(rij[3]=="1,3")
+							document.getElementById("3,3").value="O";
+					}
+				}
+
+				if(rij[1]=="1,2"){
+					document.getElementById("1,1").value="O";
+					if(rij[2]=="1,3"||rij[2]=="2,1"||rij[2]=="3,2"||rij[2]=="3,1")
+						document.getElementById("3,3").value="O";
+					if (rij[2]=="3,3") {
+						document.getElementById("1,3").value="O";
+						if(rij[3]=="2,1"||rij[3]=="3,2")
+							document.getElementById("3,1").value="O";
+						if(rij[3]=="3,1")
+							document.getElementById("3,2").value="O";
+					}
+				}
+
+				if(rij[1]=="1,3"){
+					document.getElementById("3,3").value="O";
+					if(rij[2]=="1,2"||rij[2]=="2,1"||rij[2]=="3,1"||rij[2]=="3,2")
+						document.getElementById("1,1").value="O";
+					if(rij[2] == "1,1"){
+						document.getElementById("1,2").value="O";
+						if(rij[3]=="2,1"||rij[3]=="3,1")
+							document.getElementById("3,2").value="O";
+						if(rij[3]=="3,2")
+							document.getElementById("3,1").value="O";
+					}
+				}
+
+				if(rij[1]=="2,1"){
+					document.getElementById("1,1").value="O";
+					if(rij[2]=="1,2"||rij[2]=="1,3"||rij[2]=="3,1"||rij[2]=="3,2")
+						document.getElementById("3,3").value="O";
+					if(rij[2]=="3,3"){
+						document.getElementById("1,3").value="O";
+						if(rij[3]=="1,2"||rij[3]=="3,2")
+							document.getElementById("3,1").value="O";
+						if(rij[3]=="3,1")
+							document.getElementById("3,2").value="O";
+					}
+				}
+
+				if(rij[1]=="3,1"){
+					document.getElementById("3,2").value="O";
+					if(rij[2]=="1,1"||rij[2]=="1,3"||rij[2]=="2,1"||rij[2]=="3,3")
+						document.getElementById("1,2").value="O";
+					if(rij[2]=="1,2"){
+						document.getElementById("1,3").value="O";
+						if(rij[3]=="3,3"||rij[3]=="2,1")
+							document.getElementById("1,1").value="O";
+						if(rij[3]=="1,1")
+							document.getElementById("2,1").value="O";
+					}
+				}
+
+				if(rij[1]=="3,2"){
+					document.getElementById("3,3").value="O";
+					if(rij[2]=="1,2"||rij[2]=="1,3"||rij[2]=="2,1"||rij[2]=="3,1")
+						document.getElementById("1,1").value="O";
+					if(rij[2]=="1,1"){
+						document.getElementById("1,3").value="O";
+						if(rij[3]=="1,2"||rij[3]=="2,1")
+							document.getElementById("3,1").value="O";
+						if(rij[3]=="3,1")
+							document.getElementById("2,1").value="O";
+					}
+				}
+
+				if(rij[1]=="3,3"){
+					document.getElementById("1,3").value="O";
+					if(rij[2]=="1,1"||rij[2]=="1,2"||rij[2]=="2,1"||rij[2]=="3,2")
+						document.getElementById("3,1").value="O";
+					if(rij[2]=="3,1"){
+						document.getElementById("3,2").value="O";
+						if(rij[3]=="1,1"||rij[3]=="2,1")
+							document.getElementById("1,2").value="O";
+						if(rij[3]=="1,2")
+							document.getElementById("1,1").value="O";
+					}
+				}
+
+			}
+
+			//------- EIND 2,3
+
+			//------- START 3,1
+
+			if(rij[0]=="3,1")
+			{
+				document.getElementById("2,2").value="O";
+
+				if(rij[1]=="1,1"){
+					document.getElementById("2,1").value="O";
+					if(rij[2]=="1,2"||rij[2]=="1,3"||rij[2]=="3,2"||rij[2]=="3,3")
+						document.getElementById("2,3").value="O";
+					if(rij[2]=="2,3"){
+						document.getElementById("1,3").value="O";
+						if(rij[3]=="1,2"||rij[3]=="3,2")
+							document.getElementById("3,3").value="O";
+						if(rij[3]=="3,3")
+							document.getElementById("3,2").value="O";
+					}
+				}
+
+				if(rij[1]=="1,2"){
+					document.getElementById("1,1").value="O";
+					if(rij[2]=="2,1"||rij[2]=="1,3"||rij[2]=="2,3"||rij[2]=="3,2")
+						document.getElementById("3,3").value="O";
+					if(rij[2]=="3,3"){
+						document.getElementById("3,2").value="O";
+						if(rij[3]=="2,1"||rij[3]=="2,3")
+							document.getElementById("1,3").value="O";
+						if(rij[3]=="1,3")
+							document.getElementById("2,3").value="O";
+					}
+				}
+
+				if(rij[1]=="1,3"){
+					document.getElementById("2,1").value="O";
+					if(rij[2]=="1,1"||rij[2]=="1,2"||rij[2]=="3,2"||rij[2]=="3,3")
+						document.getElementById("2,3").value="O";
+					if(rij[2]=="2,3"){
+						document.getElementById("3,3").value="O";
+						if(rij[3]=="1,2"||rij[3]=="3,2")
+							document.getElementById("1,1").value="O";
+						if(rij[3]=="1,1")
+							document.getElementById("1,2").value="O";
+					}
+				}
+
+				if(rij[1]=="2,1"){
+					document.getElementById("1,1").value="O";
+					if(rij[2]=="1,2"||rij[2]=="1,3"||rij[2]=="2,3"||rij[2]=="3,2")
+						document.getElementById("3,3").value="O";
+					if(rij[2]=="3,3"){
+						document.getElementById("3,2").value="O";
+						if(rij[3]=="1,3"||rij[3]=="2,3")
+							document.getElementById("1,2").value="O";
+						if(rij[3]=="1,2")
+							document.getElementById("1,3").value="O";
+					}
+				}
+
+				if(rij[1]=="2,3"){
+					document.getElementById("3,3").value="O";
+					if(rij[2]=="1,2"||rij[2]=="1,3"||rij[2]=="2,1"||rij[2]=="3,2")
+						document.getElementById("1,1").value="O";
+					if(rij[2]=="1,1"){
+						document.getElementById("2,1").value="O";
+						if(rij[3]=="1,2"||rij[3]=="3,2")
+							document.getElementById("1,3").value="O";
+						if(rij[3]=="1,3")
+							document.getElementById("1,2").value="O";	
+					}
+				}
+
+				if(rij[1]=="3,2"){
+					document.getElementById("3,3").value="O";
+					if(rij[2]=="1,2"||rij[2]=="1,3"||rij[2]=="2,1"||rij[2]=="2,3")
+						document.getElementById("1,1").value="O";
+					if (rij[2]=="1,1") {
+						document.getElementById("2,1").value="O";
+						if(rij[3]=="1,2"||rij[3]=="1,3")
+							document.getElementById("2,3").value="O";
+						if(rij[3]=="2,3")
+							document.getElementById("1,3").value="O";
+					}
+				}
+
+				if(rij[1]=="3,3"){
+					document.getElementById("3,2").value="O";
+					if(rij[2]=="1,1"||rij[2]=="1,3"||rij[2]=="2,1"||rij[2]=="2,3")
+						document.getElementById("1,2").value="O";
+					if (rij[2]=="1,2") {
+						document.getElementById("2,3").value="O";
+						if(rij[3]=="1,1"||rij[3]=="1,3")
+							document.getElementById("2,1").value="O";
+						if(rij[3]=="2,1")
+							document.getElementById("1,1").value="O";
+					}
+				}
+
+
+			}
+
+			//------- EIND 3,1
+
+			//------- START 3,2
+
+			if(rij[0]=="3,2")
+			{
+				document.getElementById("2,2").value="O";
+
+
+				if(rij[1]=="1,1"){
+					document.getElementById("2,1").value="O";
+					if (rij[2]=="1,2"||rij[2]=="1,3"||rij[2]=="3,1"||rij[2]=="3,3")
+						document.getElementById("2,3").value="O";
+					if(rij[2]=="2,3"){
+						document.getElementById("1,3").value="O";
+						if(rij[3]=="1,2"||rij[3]=="3,3")
+							document.getElementById("3,1").value="O";
+						if(rij[3]=="3,1")
+							document.getElementById("3,3").value="O";
+					}
+				}
+
+				if(rij[1]=="1,2"){
+					document.getElementById("1,1").value="O";
+					if(rij[2]=="1,3"||rij[2]=="2,1"||rij[2]=="3,1"||rij[2]=="2,3")
+						document.getElementById("3,3").value="O";
+					if(rij[2]=="3,3"){
+						document.getElementById("3,1").value="O";
+						if(rij[3]=="1,3"||rij[3]=="2,3")
+							document.getElementById("2,1").value="O";
+						if(rij[3]=="2,1")
+							document.getElementById("1,3").value="O";
+					}
+				}
+
+				if(rij[1]=="1,3"){
+					document.getElementById("2,3").value="O";
+					if(rij[2]=="1,1"||rij[2]=="1,2"||rij[2]=="3,1"||rij[2]=="3,3")
+						document.getElementById("2,1").value="O";
+					if(rij[2]=="2,1"){
+						document.getElementById("1,1").value="O";
+						if(rij[3]=="3,1"||rij[3]=="1,2")
+							document.getElementById("3,3").value="O";
+						if(rij[3]=="3,3")
+							document.getElementById("3,1").value="O";
+					}
+				}
+
+				if(rij[1]=="2,1"){
+					document.getElementById("3,1").value="O";
+					if(rij[2]=="1,1"||rij[2]=="1,2"||rij[2]=="2,3"||rij[2]=="3,3")
+						document.getElementById("1,3").value="O";
+					if(rij[2]=="1,3"){
+						document.getElementById("1,1").value="O";
+						if (rij[3]=="1,2"||rij[3]=="2,3")
+							document.getElementById("3,3").value="O";
+						if(rij[3]=="3,3")
+							document.getElementById("2,3").value="O";
+					}
+				}
+
+				if(rij[1]=="2,3"){
+					document.getElementById("3,3").value="O";
+					if(rij[2]=="1,2"||rij[2]=="1,3"||rij[2]=="2,1"||rij[2]=="3,1")
+						document.getElementById("1,1").value="O";
+					if(rij[2]=="1,1"){
+						document.getElementById("1,3").value="O";
+						if(rij[3]=="1,2"||rij[3]=="2,1")
+							document.getElementById("3,1").value="O";
+						if(rij[3]=="3,1")
+							document.getElementById("2,1").value="O";
+					}
+				}
+
+				if(rij[1]=="3,1"){
+					document.getElementById("3,3").value="O";
+					if(rij[2]=="1,2"||rij[2]=="1,3"||rij[2]=="2,1"||rij[2]=="2,3")
+						document.getElementById("1,1").value="O";
+					if(rij[2]=="1,1"){
+						document.getElementById("2,1").value="O";
+						if(rij[3]=="1,2"||rij[3]=="1,3")
+							document.getElementById("2,3").value="O";
+						if(rij[3]=="2,3")
+							document.getElementById("1,3").value="O";
+					}
+				}
+
+
+				if(rij[1]=="3,3"){
+					document.getElementById("3,1").value="O";
+					if(rij[2]=="1,1"||rij[2]=="1,2"||rij[2]=="2,1"||rij[2]=="2,3")
+						document.getElementById("1,3").value="O";
+					if(rij[2]=="1,3"){
+						document.getElementById("2,3").value="O";
+						if(rij[3]=="1,1"||rij[3]=="1,2")
+							document.getElementById("2,1").value="O";
+						if(rij[3]=="2,1")
+							document.getElementById("1,1").value="O";
+					}
+				}
+			}
+
+			//------- EIND 3,2
+
+
+			//------- START 3,3
+
+			if(rij[0]=="3,3"){
+				document.getElementById("2,2").value="O";
+
+				if(rij[1]=="1,1"){
+					document.getElementById("2,3").value="O";
+					if(rij[2]=="1,2"||rij[2]=="1,3"||rij[2]=="3,1"||rij[2]=="3,2")
+						document.getElementById("2,1").value="O";
+					if(rij[2]=="2,1"){
+						document.getElementById("3,1").value="O";
+						if(rij[3]=="1,2"||rij[3]=="3,2")
+							document.getElementById("1,3").value="O";
+						if(rij[3]=="1,3")
+							document.getElementById("1,2").value="O";
+					}
+				}
+
+				if(rij[1]=="1,2"){
+					document.getElementById("1,3").value="O";
+					if(rij[2]=="1,1"||rij[2]=="2,1"||rij[2]=="2,3"||rij[2]=="3,2")
+						document.getElementById("3,1").value="O";
+					if(rij[2]=="3,1"){
+						document.getElementById("3,2").value="O";
+						if(rij[3]=="2,1"||rij[3]=="2,3")
+							document.getElementById("1,1").value="O";
+						if(rij[3]=="1,1")
+							document.getElementById("2,1").value="O";
+					}
+				}
+
+				if(rij[1]=="1,3"){
+					document.getElementById("2,3").value="O";
+					if(rij[2]=="1,2"||rij[2]=="1,3"||rij[2]=="3,1"||rij[2]=="3,2")
+						document.getElementById("2,1").value="O";
+					if(rij[2]=="2,1"){
+						document.getElementById("3,1").value="O";
+						if(rij[3]=="1,2"||rij[3]=="3,2")
+							document.getElementById("1,3").value="O";
+						if(rij[3]=="1,3")
+							document.getElementById("1,2").value="O";
+					}
+				}
+
+				if(rij[1]=="2,1"){
+					document.getElementById("3,1").value="O";
+					if(rij[2]=="1,1"||rij[2]=="1,2"||rij[2]=="2,3"||rij[2]=="3,2")
+						document.getElementById("1,3").value="O";
+					if(rij[2]=="1,3"){
+						document.getElementById("2,3").value="O";
+						if(rij[3]=="1,2"||rij[3]=="3,2")
+							document.getElementById("1,1").value="O";
+						if(rij[3]=="1,1")
+							document.getElementById("1,2").value="O";
+					}
+				}
+
+				if(rij[1]=="2,3"){
+					document.getElementById("1,3").value="O";
+                    if(rij[2]=="1,1"||rij[2]=="1,2"||rij[2]=="2,1"||rij[2]=="3,2")
+                        document.getElementById("3,1").value="O";
+                    if(rij[2]=="3,1"){
+                        document.getElementById("3,2").value="O";
+                        if(rij[3]=="1,1"||rij[3]=="2,1")
+                            document.getElementById("1,2").value="O";
+                        if(rij[3]=="1,2")
+                           document.getElementById("1,1").value="O";
+                    }
+				}
+
+				if(rij[1]=="3,1"){
+					document.getElementById("3,2").value="O";
+                    if(rij[2]=="1,1"||rij[2]=="2,1"||rij[2]=="1,3"||rij[2]=="2,3")
+                        document.getElementById("1,2").value="O";
+                    if(rij[2]=="1,2"){
+                        document.getElementById("1,1").value="O";
+                        if(rij[3]=="2,1"||rij[3]=="2,3")
+                            document.getElementById("1,3").value="O";
+                        if(rij[3]=="1,3")
+                            document.getElementById("2,3").value="O";
+                    }
+				}
+
+				if(rij[1]=="3,2"){
+					document.getElementById("3,1").value="O";
+                    if(rij[2]=="1,1"||rij[2]=="1,2"||rij[2]=="2,1"||rij[2]=="2,3")
+                        document.getElementById("1,3").value="O";
+                    if(rij[2]=="1,3"){
+                        document.getElementById("2,3").value="O";
+                        if(rij[3]=="1,1"||rij[3]=="1,2")
+                            document.getElementById("2,1").value="O";
+                        if(rij[3]=="2,1")
+                            document.getElementById("1,1").value="O";
+                    }
+				}
+			}
+            
+            //------- EIND 3,3
+
+			//------- START 2,2
+            
+            if(rij[0]=="2,2"){
+            
+                document.getElementById("1,1").value="O";
+                
+                if(rij[1]=="1,2"){
+                    document.getElementById("3,2").value="O";
+                    if(rij[2]=="1,3"){
+                        document.getElementById("3,1").value="O";
+                        if(rij[3]=="2,3"||rij[3]=="3,3")
+                            document.getElementById("2,1").value="O";
+                        if(rij[3]=="2,1")
+                            document.getElementById("2,3").value="O";
+                    }
+                    
+                    if(rij[2]=="2,1"){
+                        document.getElementById("2,3").value="O";
+                        if(rij[3]=="3,1"||rij[3]=="3,3")
+                           document.getElementById("1,3").value="O";
+                        if(rij[3]=="1,3")
+                            document.getElementById("3,1").value="O";
+                    }
+                           
+                    if(rij[2]=="2,3"){
+                        document.getElementById("2,1").value="O";
+                        if(rij[3]=="1,3"||rij[3]=="3,3")
+                            document.getElementById("3,1").value="O";
+                        if(rij[3]=="3,1")
+                            document.getElementById("1,3").value="O";
+                    }
+                    
+                    if(rij[2]=="3,1"){
+                        document.getElementById("1,3").value="O";
+                        if(rij[3]=="2,1"||rij[3]=="3,3")
+                            document.getElementById("2,3").value="O";
+                        if(rij[3]=="2,3")
+                            document.getElementById("2,1");
+                    }
+                    
+                    if(rij[2]=="3,3"){
+                        document.getElementById("2,3").value="O";
+                        if(rij[3]=="3,1"||rij[3]=="2,1")
+                            document.getElementById("1,3").value="O";
+                        if(rij[3]=="1,3")
+                            document.getElementById("3,1").value="O";
+                    }
+                }
+                
+                
+                if(rij[1]=="1,3"){
+                    document.getElementById("3,1").value="O";
+                    
+                    if(rij[2]=="1,2"){
+                        document.getElementById("3,2").value="O";
+                        if(rij[3]=="2,1"||rij[3]=="2,3")
+                            document.getElementById("3,3").value="O";
+                        if(rij[3]=="3,3")
+                            document.getElementById("2,3").value="O";
+                    }
+                    
+                    if(rij[2]=="2,1"){
+                        document.getElementById("2,3").value="O";
+                        if(rij[3]=="1,2"||rij[3]=="3,3")
+                            document.getElementById("3,2").value="O";
+                        if(rij[3]=="3,2")
+                            document.getElementById("1,2").value="O";
+                    }
+                    
+                    if(rij[2]=="2,3"){
+                        document.getElementById("2,1").value="O";
+                    }
+                    
+                    if(rij[2]=="3,2"){
+                        document.getElementById("1,2").value="O";
+                        if(rij[3]=="2,3"||rij[3]=="3,3")
+                            document.getElementById("2,1").value="O";
+                        if(rij[3]=="2,1")
+                            document.getElementById("2,3").value="O";
+                    }
+                    
+                    if(rij[2]=="3,3"){
+                        document.getElementById("2,3").value="O";
+                        if(rij[3]=="1,2"||rij[3]=="3,2")
+                            document.getElementById("2,1").value="O";
+                        if(rij[3]=="2,1")
+                            document.getElementById("1,2").value="O";
+                    }
+                    
+                }
+                
+                
+                if(rij[1]=="2,1"){
+                    document.getElementById("2,3").value="O";
+                    
+                    if(rij[2]=="1,2"){
+                        document.getElementById("3,2").value="O";
+                        if(rij[3]=="3,1"||rij[3]=="3,3")
+                            document.getElementById("1,3").value="O";
+                        if(rij[3]=="1,3")
+                            document.getElementById("3,1").value="O";
+                    }
+                    
+                    if(rij[2]=="1,3"){
+                       document.getElementById("3,1").value="O";
+                        if(rij[3]=="3,2"||rij[3]=="3,3")
+                            document.getElementById("1,2").value="O";
+                        if(rij[3]=="1,2")
+                            document.getElementById("3,2").value="O";
+                    }
+                    
+                    if(rij[2]=="3,1"){
+                       document.getElementById("1,3").value="O";
+                        if(rij[3]=="3,2"||rij[3]=="3,3")
+                            document.getElementById("1,2").value="O";
+                        if(rij[3]=="1,2")
+                            document.getElementById("3,2").value="O";
+                    }
+                    
+                    if(rij[2]=="3,2"){
+                       document.getElementById("1,2").value="O";
+                       if(rij[3]=="3,1"||rij[3]=="3,3")
+                       	document.getElementById("1,3").value="O";
+                       if(rij[3]=="1,3")
+                       	document.getElementById("3,1").value="O";
+                    }
+                    
+                    if(rij[2]=="3,3"){
+                       document.getElementById("1,2").value="O";
+                       if(rij[3]=="3,1"||rij[3]=="3,2")
+                       	document.getElementById("1,3").value="O";
+                       if(rij[3]=="1,3")
+                       	document.getElementById("3,1").value="O";
+                    }
+                    
+                    
+                }
+                
+                
+                
+                if(rij[1]=="2,3"){
+                    document.getElementById("2,1").value="O";
+                    if(rij[2]=="1,2"||rij[2]=="1,3"||rij[2]=="3,2"||rij[2]=="3,3")
+                    	document.getElementById("3,1").value="O";
+                    	if(rij[2]=="3,1"){
+                    		document.getElementById("1,3").value="O";
+                    		if(rij[3]=="3,2"||rij[3]=="3,3")
+                    			document.getElementById("1,2").value="O";
+                    		if(rij[3]=="1,2")
+                    			document.getElementById("3,2").value="O"
+                    	}
+
+                }
+                
+                
+                
+                if(rij[1]=="3,1"){
+                    document.getElementById("1,3").value="O";
+                    if(rij[2]=="2,1"||rij[2]=="2,3"||rij[2]=="3,2"||rij[2]=="3,3")
+                    	document.getElementById("1,2").value="O";
+                    if(rij[2]=="1,2"){
+                    	document.getElementById("3,2").value="O";
+                    	if(rij[3]=="2,3"||rij[3]=="3,3")
+                    		document.getElementById("2,1").value="O";
+                    	if(rij[3]=="2,1")
+                    		document.getElementById("2,3").value="O"
+                    }
+                }
+                
+                
+                
+                if(rij[1]=="3,2"){
+                    document.getElementById("1,2").value="O";
+                    if(rij[2]=="2,1"||rij[2]=="2,3"||rij[2]=="3,1"||rij[2]=="3,3")
+                    	document.getElementById("1,3").value="O";
+                    if(rij[2]=="1,3"){
+                    	document.getElementById("3,1").value="O";
+                    	if(rij[3]=="2,3"||rij[3]=="3,3")
+                    		document.getElementById("2,1").value="O";
+                    	if(rij[3]=="2,1")
+                    		document.getElementById("2,3").value="O";
+                    }
+                }
+                
+                if(rij[1]=="3,3"){
+                    document.getElementById("3,1").value="O";
+                    if(rij[2]=="1,2"||rij[2]=="1,3"||rij[2]=="2,3"||rij[2]=="3,2")
+                    	document.getElementById("2,1").value="O";
+                    if(rij[2]=="2,1"){
+                    	document.getElementById("2,3").value="O";
+                    	if(rij[3]=="1,2"||rij[3]=="1,3")
+                    		document.getElementById("3,2").value="O";
+                    	if(rij[3]=="3,2")
+                    		document.getElementById("1,2").value="O";
+                    }
+                }
+            
+            }
+
+		}//Einde van de functie
+
+				</script>
+
+		<input type="button" class="knop" value=" " id="1,1" onclick = "Mark(this.id)"/>
+		<input type="button" class="knop" value=" " id="1,2" onclick = "Mark(this.id)"/>
+		<input type="button" class="knop" value=" " id="1,3" onclick = "Mark(this.id)"/><br>
+		<input type="button" class="knop" value=" " id="2,1" onclick = "Mark(this.id)"/>
+		<input type="button" class="knop" value=" " id="2,2" onclick = "Mark(this.id)"/>
+		<input type="button" class="knop" value=" " id="2,3" onclick = "Mark(this.id)"/><br>
+		<input type="button" class="knop" value=" " id="3,1" onclick = "Mark(this.id)"/>
+		<input type="button" class="knop" value=" " id="3,2" onclick = "Mark(this.id)"/>
+		<input type="button" class="knop" value=" " id="3,3" onclick = "Mark(this.id)"/>
+		<button onclick = "AllesLeegmaken()">Reset</button><br>
+		Speler: <div id="scoreSpeler">0</div><br><!--Geef de speler valse hoop-->
+		computer: <div id="scoreComputer">0</div>
+
+	</body>
+</html>
